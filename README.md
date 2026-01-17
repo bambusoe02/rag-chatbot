@@ -42,7 +42,7 @@ flowchart TB
     ChromaDB -.->|Top-K Docs| FastAPI
     FastAPI -.->|Context + Prompt| Ollama[🐋 Ollama Server<br/>Port 11434]
     Ollama --> Qwen[🤖 Qwen 2.5 14B<br/>Local LLM]
-    Qwen -.->|Generated Answer| FastAPI
+    Ollama -.->|Generated Answer| FastAPI
     FastAPI -.->|Response + Citations| Streamlit
     Streamlit -.->|Display| User
 ```

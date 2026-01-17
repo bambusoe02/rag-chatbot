@@ -27,38 +27,35 @@ Enterprises need AI-powered document intelligence that respects data sovereignty
 
 ## 🏗️ Architecture
 
+```mermaid
+flowchart TB
+    User[👤 User] --> Streamlit[🎨 Streamlit Frontend<br/>Port 8501]
+    Streamlit --> FastAPI[⚙️ FastAPI Backend<br/>Port 8000]
+    
+    FastAPI --> DocProc[📄 Document Processor<br/>PDF • DOCX • TXT • MD]
+    DocProc --> Chunker[✂️ Text Chunker<br/>LangChain Splitter<br/>Size: 1000, Overlap: 200]
+    Chunker --> Embeddings[🧠 Embeddings<br/>all-MiniLM-L6-v2]
+    Embeddings --> ChromaDB[(💾 ChromaDB<br/>Vector Storage<br/>HNSW Index)]
+    
+    Streamlit -.->|Query| FastAPI
+    FastAPI -.->|Similarity Search| ChromaDB
+    ChromaDB -.->|Top-K Docs| FastAPI
+    FastAPI -.->|Context + Prompt| Ollama[🐋 Ollama Server<br/>Port 11434]
+    Ollama --> Qwen[🤖 Qwen 2.5 14B<br/>Local LLM]
+    Qwen -.->|Generated Answer| FastAPI
+    FastAPI -.->|Response + Citations| Streamlit
+    Streamlit -.->|Display| User
 ```
-┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│  Documents  │────▶│   Processing  │────▶│  Vector DB  │
-│ PDF/DOCX/TXT│     │   Pipeline    │     │  ChromaDB   │
-└─────────────┘     └──────────────┘     └─────────────┘
-                           │                      │
-                           ▼                      ▼
-                    ┌──────────────┐     ┌─────────────┐
-                    │   Chunking   │     │  Embeddings │
-                    │   Strategy   │     │ all-MiniLM  │
-                    └──────────────┘     └─────────────┘
-                                                 │
-                    ┌─────────────────────────────┘
-                    ▼
-            ┌──────────────┐     ┌──────────────┐
-            │     Query    │────▶│  Qwen LLM    │
-            │   Processor  │     │ via Ollama   │
-            └──────────────┘     └──────────────┘
-                    │                     │
-                    ▼                     ▼
-            ┌──────────────────────────────────┐
-            │      FastAPI REST API            │
-            │   + Streamlit Dashboard          │
-            └──────────────────────────────────┘
-```
+
+**Flow Legend:**
+- **Solid lines (→):** Document upload and indexing pipeline
+- **Dashed lines (-.→):** Query and response flow
 
 **Key Design Decisions:**
 - **Local-first**: Ollama + Qwen for data sovereignty
 - **Persistent storage**: ChromaDB with HNSW indexing
 - **Semantic chunking**: Context-aware document splitting
 - **Hybrid retrieval**: Semantic search + metadata filtering
-- **Streaming responses**: Real-time token generation
 
 ---
 

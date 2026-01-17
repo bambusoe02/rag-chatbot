@@ -189,7 +189,7 @@ query = "How do I configure SSO for enterprise accounts?"
 ## 📁 Project Structure
 
 ```
-enterprise-rag-system/
+rag-chatbot/
 ├── backend/
 │   ├── main.py                 # FastAPI application
 │   ├── config.py               # Configuration management
@@ -376,8 +376,9 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 - 📧 Email: bambusoe@gmail.com
 - 🐙 GitHub: [@bambusoe02](https://github.com/bambusoe02)
+- 💼 LinkedIn: [Marcin Baran](www.linkedin.com/in/marcin-baran-967237173)
 
-**Location:** Kraków, Poland 🇵🇱 & Reykjavik, Iceland 🇮🇸  
+**Location:** Warsaw, Poland 🇵🇱 & Reykjavik, Iceland 🇮🇸  
 **Open to:** Remote opportunities, consulting, collaborations
 
 ---

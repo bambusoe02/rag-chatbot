@@ -1,0 +1,5 @@
+{
+  "temperature": 1.0,
+  "top_k": 7,
+  "model": "qwen2.5:14b-instruct"
+}

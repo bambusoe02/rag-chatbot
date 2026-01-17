@@ -1,0 +1,60 @@
+{
+  "total_queries": 11,
+  "total_documents": 0,
+  "total_chunks": 0,
+  "average_response_time": 0.0011032061143354936,
+  "total_feedback_positive": 0,
+  "total_feedback_negative": 0,
+  "queries_by_date": {
+    "2026-01-17": 11
+  },
+  "top_queries": [
+    {
+      "question": "What topics are covered?",
+      "timestamp": "2026-01-17T00:15:44.899915"
+    },
+    {
+      "question": "Dlaczego nie dziala mi przegladarka ?",
+      "timestamp": "2026-01-17T00:22:34.515886"
+    },
+    {
+      "question": "Nic to have it",
+      "timestamp": "2026-01-17T00:24:26.410789"
+    },
+    {
+      "question": "nic to have it",
+      "timestamp": "2026-01-17T00:24:38.666998"
+    },
+    {
+      "question": "test question",
+      "timestamp": "2026-01-17T00:26:53.410192"
+    },
+    {
+      "question": "test",
+      "timestamp": "2026-01-17T00:30:05.797741"
+    },
+    {
+      "question": "test",
+      "timestamp": "2026-01-17T00:32:13.870448"
+    },
+    {
+      "question": "co u ciebie ?",
+      "timestamp": "2026-01-17T00:37:52.963784"
+    },
+    {
+      "question": "What documents do you have?",
+      "timestamp": "2026-01-17T00:40:28.953243"
+    },
+    {
+      "question": "What documents do you have?",
+      "timestamp": "2026-01-17T00:40:31.294478"
+    },
+    {
+      "question": "Summarize the uploaded documents",
+      "timestamp": "2026-01-17T00:40:34.343603"
+    }
+  ],
+  "documents_usage": {},
+  "created_at": "2026-01-17T00:14:30.401151",
+  "last_updated": "2026-01-17T00:41:07.203792"
+}

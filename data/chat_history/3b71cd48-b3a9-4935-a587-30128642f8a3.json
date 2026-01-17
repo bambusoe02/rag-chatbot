@@ -1,0 +1,55 @@
+{
+  "session_id": "3b71cd48-b3a9-4935-a587-30128642f8a3",
+  "created_at": "2026-01-17T00:40:34.344312",
+  "updated_at": "2026-01-17T00:40:34.344315",
+  "messages": [
+    {
+      "role": "user",
+      "content": "co u ciebie ?",
+      "timestamp": "2026-01-17 00:37:52"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:37:52",
+      "query_time": 0.00014090538024902344
+    },
+    {
+      "role": "user",
+      "content": "What documents do you have?",
+      "timestamp": "2026-01-17 00:40:28"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:40:28",
+      "query_time": 0.00012755393981933594
+    },
+    {
+      "role": "user",
+      "content": "What documents do you have?",
+      "timestamp": "2026-01-17 00:40:31"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:40:31",
+      "query_time": 0.00011420249938964844
+    },
+    {
+      "role": "user",
+      "content": "Summarize the uploaded documents",
+      "timestamp": "2026-01-17 00:40:34"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:40:34",
+      "query_time": 0.00010895729064941406
+    }
+  ]
+}

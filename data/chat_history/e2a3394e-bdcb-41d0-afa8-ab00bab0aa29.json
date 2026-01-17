@@ -1,0 +1,19 @@
+{
+  "session_id": "e2a3394e-bdcb-41d0-afa8-ab00bab0aa29",
+  "created_at": "2026-01-17T00:15:44.901594",
+  "updated_at": "2026-01-17T00:15:44.901601",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What topics are covered?",
+      "timestamp": "2026-01-17 00:15:44"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:15:44",
+      "query_time": 0.0021936893463134766
+    }
+  ]
+}

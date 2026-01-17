@@ -1,0 +1,43 @@
+{
+  "session_id": "5502a53f-6577-45d0-8bd4-b85e4ac96174",
+  "created_at": "2026-01-17T00:24:38.668077",
+  "updated_at": "2026-01-17T00:24:38.668080",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Dlaczego nie dziala mi przegladarka ?",
+      "timestamp": "2026-01-17 00:22:34"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:22:34",
+      "query_time": 0.0001456737518310547
+    },
+    {
+      "role": "user",
+      "content": "Nic to have it",
+      "timestamp": "2026-01-17 00:24:26"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:24:26",
+      "query_time": 0.0001418590545654297
+    },
+    {
+      "role": "user",
+      "content": "nic to have it",
+      "timestamp": "2026-01-17 00:24:38"
+    },
+    {
+      "role": "assistant",
+      "content": "I encountered an error while processing your question: 'Collection' object has no attribute '_embedding_function'",
+      "sources": [],
+      "timestamp": "2026-01-17 00:24:38",
+      "query_time": 0.00014066696166992188
+    }
+  ]
+}

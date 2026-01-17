@@ -1,0 +1,13 @@
+{
+  "total_queries": 0,
+  "total_documents": 0,
+  "total_chunks": 0,
+  "average_response_time": 0.0,
+  "total_feedback_positive": 0,
+  "total_feedback_negative": 0,
+  "queries_by_date": {},
+  "top_queries": [],
+  "documents_usage": {},
+  "created_at": "2026-01-17T01:01:32.705802",
+  "last_updated": "2026-01-17T01:04:51.824760"
+}

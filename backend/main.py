@@ -59,6 +59,7 @@ from backend.auth import (
 )
 from backend.user_rag_engine import UserRAGEngine
 from backend.webhooks import WebhookManager
+from backend.health import router as health_router
 
 # Pydantic schemas for auth
 class UserCreate(BaseModel):
@@ -120,10 +121,12 @@ async def startup_event():
         logger.warning(f"Legacy RAG engine not initialized: {e}")
         # Don't fail startup, user-specific engines will be created on demand
 
+# Include health check router
+app.include_router(health_router)
 
 @app.get("/health")
 async def health_check():
-    """Simple health check endpoint."""
+    """Simple health check endpoint (legacy, kept for backward compatibility)."""
     return {
         "status": "ok",
         "message": "RAG Chatbot Enterprise API is running",

@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://github.com/bambusoe02/rag-chatbot/workflows/tests/badge.svg)](https://github.com/bambusoe02/rag-chatbot/actions/workflows/tests.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 [📖 Documentation](#use-cases) • [⭐ Star this repo](https://github.com/bambusoe02/rag-chatbot)
@@ -28,28 +29,86 @@ Enterprises need AI-powered document intelligence that respects data sovereignty
 ## 🏗️ Architecture
 
 ```mermaid
-flowchart TB
-    User[👤 User] --> Streamlit[🎨 Streamlit Frontend<br/>Port 8501]
-    Streamlit --> FastAPI[⚙️ FastAPI Backend<br/>Port 8000]
+flowchart TD
+    %% User Interaction Layer
+    subgraph UI["👤 USER INTERACTION"]
+        User[👤 User]
+        Frontend[🎨 Streamlit Frontend<br/>Port 8501]
+        User -->|1. User Request| Frontend
+        Frontend -->|2. REST API| Backend
+    end
     
-    FastAPI --> DocProc[📄 Document Processor<br/>PDF • DOCX • TXT • MD]
-    DocProc --> Chunker[✂️ Text Chunker<br/>LangChain Splitter<br/>Size: 1000, Overlap: 200]
-    Chunker --> Embeddings[🧠 Embeddings<br/>all-MiniLM-L6-v2]
-    Embeddings --> ChromaDB[(💾 ChromaDB<br/>Vector Storage<br/>HNSW Index)]
+    %% Backend Layer
+    subgraph BE["⚙️ BACKEND SERVICES"]
+        Backend[⚙️ FastAPI Backend<br/>Port 8000]
+    end
     
-    Streamlit -.->|Query| FastAPI
-    FastAPI -.->|Similarity Search| ChromaDB
-    ChromaDB -.->|Top-K Docs| FastAPI
-    FastAPI -.->|Context + Prompt| Ollama[🐋 Ollama Server<br/>Port 11434]
-    Ollama --> Qwen[🤖 Qwen 2.5 14B<br/>Local LLM]
-    Ollama -.->|Generated Answer| FastAPI
-    FastAPI -.->|Response + Citations| Streamlit
-    Streamlit -.->|Display| User
+    %% Document Ingestion Pipeline
+    subgraph DI["📄 DOCUMENT INGESTION"]
+        DocProc[📄 Document Processor<br/>PDF • DOCX • TXT • MD]
+        Chunker[✂️ Text Chunker<br/>LangChain RecursiveTextSplitter<br/>Size: 1000, Overlap: 200]
+        Embeddings[🧠 Embeddings Model<br/>sentence-transformers<br/>all-MiniLM-L6-v2]
+        
+        Backend -->|3. Upload Document| DocProc
+        DocProc -->|4. Process| Chunker
+        Chunker -->|5. Split Text| Embeddings
+        Embeddings -->|6. Generate Vectors| ChromaDB
+    end
+    
+    %% Storage Layer
+    subgraph ST["💾 STORAGE"]
+        ChromaDB[(💾 ChromaDB<br/>Persistent HNSW Index<br/>Vector Storage)]
+    end
+    
+    %% Query Flow
+    subgraph QF["🔍 QUERY FLOW"]
+        LLM[🤖 Qwen 2.5 14B LLM<br/>via Ollama Port 11434]
+        Answer[💬 Generated Answer<br/>+ Citations]
+        
+        Backend -->|8. Query Embedding| ChromaDB
+        ChromaDB -->|9. Top-K Similar Chunks<br/>Similarity Search| Backend
+        Backend -->|10. Chunks + Query| LLM
+        LLM -->|11. Generated Answer<br/>+ Citations| Backend
+    end
+    
+    %% Query Initiation
+    Frontend -->|7. User Query| Backend
+    Backend -->|12. Response| Frontend
+    Frontend -->|Display| User
+    
+    %% Styling
+    classDef frontend fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    classDef backend fill:#f97316,stroke:#c2410c,stroke-width:2px,color:#fff
+    classDef storage fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff
+    classDef llm fill:#ef4444,stroke:#b91c1c,stroke-width:2px,color:#fff
+    classDef process fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff
+    
+    class Frontend,User frontend
+    class Backend backend
+    class ChromaDB storage
+    class LLM,Answer llm
+    class DocProc,Chunker,Embeddings process
 ```
 
-**Flow Legend:**
-- **Solid lines (→):** Document upload and indexing pipeline
-- **Dashed lines (-.→):** Query and response flow
+**Flow Description:**
+
+**User Interaction:**
+1. User sends request → Streamlit Frontend (Port 8501)
+2. Frontend forwards request → FastAPI Backend (Port 8000) via REST API
+
+**Document Ingestion Pipeline:**
+3. Backend receives document → Document Processor (PDF/DOCX/TXT/MD)
+4. Processor extracts text → Text Chunker (LangChain RecursiveTextSplitter)
+5. Chunker splits text → Embeddings Model (sentence-transformers)
+6. Embeddings generate vectors → ChromaDB (Persistent HNSW Index)
+
+**Query Flow:**
+7. User Query → Frontend → Backend
+8. Backend → Query Embedding → ChromaDB
+9. ChromaDB → Top-K Similar Chunks (Similarity Search)
+10. Chunks + Query → Qwen LLM (via Ollama)
+11. LLM → Generated Answer + Citations
+12. Backend → Frontend → User Display
 
 **Key Design Decisions:**
 - **Local-first**: Ollama + Qwen for data sovereignty
@@ -290,7 +349,89 @@ docker-compose up -d
 
 ---
 
+## 🏥 Health Checks
+
+The system provides comprehensive health monitoring for production deployments:
+
+### Endpoints
+
+- `GET /health/live` - **Liveness probe** (Kubernetes compatible)
+  - Returns 200 if service is running (even if degraded)
+  - Used to determine if container should be restarted
+  
+- `GET /health/ready` - **Readiness probe** (Kubernetes compatible)
+  - Returns 200 only if all critical services are healthy
+  - Used to determine if container can receive traffic
+  
+- `GET /health/status` - **Detailed system status**
+  - Comprehensive health check of all components
+  - Returns status of: Ollama, Database, ChromaDB, Disk, Memory
+
+### Status Page
+
+Access the interactive status dashboard:
+- **Frontend**: Settings → System Status (🏥 icon)
+- **API**: `GET /health/status`
+
+Monitors:
+- ✅ **Ollama LLM** - Service availability and model count
+- ✅ **Database** - Connection status and size
+- ✅ **Vector Database** - ChromaDB collections and document count
+- ✅ **Disk Space** - Usage percentage and available space
+- ✅ **Memory** - RAM usage and available memory
+
+### Docker Health Checks
+
+All services include automated health checks:
+
+```bash
+# Check service health status
+docker-compose ps
+
+# View detailed health logs
+docker inspect rag-backend | grep -A 10 Health
+
+# Test health endpoints manually
+curl http://localhost:8000/health/live
+curl http://localhost:8000/health/ready
+curl http://localhost:8000/health/status
+```
+
+### Health Check Configuration
+
+Health checks are configured in `docker-compose.yml`:
+- **Interval**: 30 seconds
+- **Timeout**: 10 seconds
+- **Retries**: 3 attempts
+- **Start Period**: 40 seconds (grace period for startup)
+
+---
+
 ## 🧑‍💻 Development
+
+### Setup Pre-commit Hooks
+
+Pre-commit hooks automatically check code quality before each commit:
+
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install git hooks
+pre-commit install
+
+# (Optional) Run hooks on all files
+pre-commit run --all-files
+```
+
+Hooks include:
+- **black** - Code formatting
+- **isort** - Import sorting
+- **pylint** - Linting
+- **trailing-whitespace** - Remove trailing whitespace
+- **end-of-file-fixer** - Ensure files end with newline
+- **check-yaml** - Validate YAML files
+- **check-added-large-files** - Prevent large file commits
 
 ### Running Tests
 

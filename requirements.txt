@@ -1,4 +1,4 @@
-# FastAPI
+# FastAPI Backend
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 python-multipart==0.0.6
@@ -6,6 +6,8 @@ python-multipart==0.0.6
 # Authentication
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+
+# Configuration
 python-dotenv==1.0.0
 
 # Database
@@ -16,19 +18,19 @@ alembic==1.13.1
 pydantic==2.5.3
 pydantic-settings==2.1.0
 
-# LangChain - compatible versions
+# LangChain - RAG Engine
 langchain==0.1.0
 langchain-community==0.0.10
 langchain-core==0.1.10
 
-# ChromaDB - working version
+# ChromaDB - Vector Storage
 chromadb==0.4.18
 
 # Embeddings
 sentence-transformers==2.2.2
 transformers==4.36.0
 
-# Document processing
+# Document Processing
 pypdf2==3.0.1
 python-docx==1.1.0
 
@@ -39,7 +41,12 @@ rank-bm25==0.2.2
 streamlit==1.30.0
 streamlit-extras==0.3.6
 streamlit-aggrid==0.3.4
+
+# HTTP Client
 requests==2.31.0
+httpx==0.26.0
+
+# Visualization & Export
 plotly>=5.18.0
 reportlab>=4.0.7
 fpdf2==2.7.6
@@ -47,10 +54,9 @@ wordcloud==1.9.3
 
 # Utils
 loguru==0.7.2
-pytest==7.4.3
-httpx==0.26.0
 pandas==2.1.4
 python-dateutil==2.8.2
+psutil==5.9.6
 
 # Explicit dependencies
 numpy<2.0.0

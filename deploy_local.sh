@@ -131,9 +131,9 @@ echo ""
 
 # Check docker-compose.yml
 if [ -f "docker-compose.yml" ]; then
-    print_success "docker-compose.yml istnieje"
+    print_success "docker-compose.yml exists"
 else
-    print_error "docker-compose.yml NIE istnieje!"
+    print_error "docker-compose.yml does NOT exist!"
     exit 1
 fi
 
@@ -148,7 +148,7 @@ if [ ! -f ".env" ]; then
         exit 1
     fi
 else
-    print_success ".env istnieje"
+    print_success ".env exists"
 fi
 
 # Generate SECRET_KEY if not set or default

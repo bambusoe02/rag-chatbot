@@ -26,7 +26,7 @@ echo -e "${GREEN}✓${NC} Python: $PYTHON_VERSION"
 
 # Check if virtual environment exists
 if [ ! -d "venv" ]; then
-    echo -e "${YELLOW}⚠${NC} Tworzenie wirtualnego środowiska..."
+    echo -e "${YELLOW}⚠${NC} Creating virtual environment..."
     python3 -m venv venv
     echo -e "${GREEN}✓${NC} Wirtualne środowisko utworzone"
 fi

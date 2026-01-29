@@ -1,0 +1,15 @@
+# Development and testing dependencies
+
+# Load testing
+locust==2.20.0
+faker==22.0.0
+
+# Data analysis
+pandas>=2.0.0
+
+# E2E testing
+pytest-playwright==0.4.4
+pytest-asyncio==0.23.3
+pytest-xdist==3.5.0
+allure-pytest==2.13.2
+pytest-html==4.1.1

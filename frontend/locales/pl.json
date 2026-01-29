@@ -1,0 +1,60 @@
+{
+  "login": {
+    "title": "Logowanie",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "login_button": "Zaloguj",
+    "register_link": "Nie masz konta? Zarejestruj się",
+    "forgot_password": "Zapomniałeś hasła?"
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "search": "Szukaj",
+    "upload": "Prześlij",
+    "download": "Pobierz",
+    "settings": "Ustawienia",
+    "logout": "Wyloguj",
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "warning": "Ostrzeżenie",
+    "info": "Informacja"
+  },
+  "chat": {
+    "title": "Czat",
+    "ask_question": "Zadaj pytanie...",
+    "send": "Wyślij",
+    "no_documents": "Brak przesłanych dokumentów. Proszę najpierw przesłać dokumenty.",
+    "thinking": "Myślę...",
+    "sources": "Źródła",
+    "rate_answer": "Oceń tę odpowiedź",
+    "thumbs_up": "👍 Dobra",
+    "thumbs_down": "👎 Słaba"
+  },
+  "analytics": {
+    "title": "Analityka",
+    "total_queries": "Łączne zapytania",
+    "avg_response_time": "Średni czas odpowiedzi",
+    "satisfaction": "Satysfakcja",
+    "popular_queries": "Popularne zapytania",
+    "failed_queries": "Nieudane zapytania"
+  },
+  "documents": {
+    "title": "Dokumenty",
+    "upload_document": "Prześlij dokument",
+    "document_list": "Lista dokumentów",
+    "processing": "Przetwarzanie...",
+    "processed": "Przetworzono",
+    "failed": "Niepowodzenie"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "language": "Język",
+    "theme": "Motyw",
+    "notifications": "Powiadomienia"
+  }
+}
+

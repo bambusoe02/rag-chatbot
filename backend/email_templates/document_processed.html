@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Document Processed ✅</h2>
+
+<p>Hi {{ username }},</p>
+
+<p>Great news! Your document has been successfully processed and is ready to use.</p>
+
+<div class="info-box">
+    <strong>📄 Document Details:</strong><br>
+    <strong>Filename:</strong> {{ filename }}<br>
+    <strong>Chunks Created:</strong> {{ chunks_count }}<br>
+    <strong>Status:</strong> Ready for queries
+</div>
+
+<p>You can now ask questions about this document in your dashboard.</p>
+
+<p style="text-align: center;">
+    <a href="{{ app_url }}" class="button">Ask Questions Now</a>
+</p>
+
+<p>Happy querying! 🚀</p>
+{% endblock %}
+

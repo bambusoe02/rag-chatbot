@@ -11,8 +11,34 @@ from .database import get_db
 from .db_models import User, APIKey, APIUsage
 import os
 import secrets
+from loguru import logger
 
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production-use-openssl-rand-hex-32")
+# SECRET_KEY validation - must be set in production
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    environment = os.getenv("ENVIRONMENT", "development")
+    if environment == "production":
+        raise ValueError(
+            "SECRET_KEY must be set in production environment. "
+            "Generate one with: openssl rand -hex 32"
+        )
+    # Only allow weak default in development
+    SECRET_KEY = "dev-secret-key-change-in-production"
+    logger.warning(
+        "⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION. "
+        "Set SECRET_KEY environment variable."
+    )
+
+# Validate SECRET_KEY is not the default insecure value
+if SECRET_KEY == "your-secret-key-change-in-production-use-openssl-rand-hex-32":
+    environment = os.getenv("ENVIRONMENT", "development")
+    if environment == "production":
+        raise ValueError(
+            "SECRET_KEY cannot be the default value in production. "
+            "Generate a secure key with: openssl rand -hex 32"
+        )
+    logger.warning("⚠️  SECRET_KEY is set to default insecure value. Change it before production.")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 

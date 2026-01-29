@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Rate Limit Warning ⚠️</h2>
+
+<p>Hi {{ username }},</p>
+
+<p>This is a friendly reminder that you've used <strong>{{ usage_percent }}%</strong> of your rate limit.</p>
+
+<div class="warning-box">
+    <strong>Current Usage:</strong><br>
+    {{ usage_percent }}% of {{ limit }} requests/hour
+</div>
+
+<p>To avoid hitting your limit:</p>
+<ul>
+    <li>Batch similar requests together</li>
+    <li>Use caching when possible</li>
+    <li>Consider upgrading your plan</li>
+</ul>
+
+<p>Need more capacity? Contact us about upgrading your account.</p>
+{% endblock %}
+

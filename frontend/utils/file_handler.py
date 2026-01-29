@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
+from loguru import logger
 
 
 class ChatHistoryHandler:
@@ -38,7 +39,7 @@ class ChatHistoryHandler:
             with open(history_file, "w") as f:
                 json.dump(chat_data, f, indent=2)
         except Exception as e:
-            print(f"Error saving chat history: {e}")
+            logger.error(f"Error saving chat history: {e}")
     
     def load_chat(self, session_id: str) -> List[Dict[str, Any]]:
         """Load chat messages from file.
@@ -56,7 +57,7 @@ class ChatHistoryHandler:
                     chat_data = json.load(f)
                     return chat_data.get("messages", [])
         except Exception as e:
-            print(f"Error loading chat history: {e}")
+            logger.error(f"Error loading chat history: {e}")
         return []
     
     def list_sessions(self) -> List[Dict[str, Any]]:
@@ -77,7 +78,7 @@ class ChatHistoryHandler:
                         "message_count": len(chat_data.get("messages", [])),
                     })
         except Exception as e:
-            print(f"Error listing sessions: {e}")
+            logger.error(f"Error listing sessions: {e}")
         return sorted(sessions, key=lambda x: x.get("updated_at", ""), reverse=True)
     
     def delete_session(self, session_id: str) -> bool:
@@ -95,7 +96,7 @@ class ChatHistoryHandler:
                 history_file.unlink()
                 return True
         except Exception as e:
-            print(f"Error deleting session: {e}")
+            logger.error(f"Error deleting session: {e}")
         return False
 
 
@@ -134,7 +135,7 @@ class UserPreferencesHandler:
                     # Merge with defaults to ensure all keys exist
                     return {**default_prefs, **prefs}
         except Exception as e:
-            print(f"Error loading preferences: {e}")
+            logger.error(f"Error loading preferences: {e}")
         
         return default_prefs
     
@@ -148,7 +149,7 @@ class UserPreferencesHandler:
             with open(self.prefs_file, "w") as f:
                 json.dump(preferences, f, indent=2)
         except Exception as e:
-            print(f"Error saving preferences: {e}")
+            logger.error(f"Error saving preferences: {e}")
 
 
 # Global handlers

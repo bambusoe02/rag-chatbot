@@ -1,0 +1,60 @@
+{
+  "login": {
+    "title": "Anmeldung",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login_button": "Anmelden",
+    "register_link": "Noch kein Konto? Registrieren",
+    "forgot_password": "Passwort vergessen?"
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "search": "Suchen",
+    "upload": "Hochladen",
+    "download": "Herunterladen",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "warning": "Warnung",
+    "info": "Information"
+  },
+  "chat": {
+    "title": "Chat",
+    "ask_question": "Stellen Sie eine Frage...",
+    "send": "Senden",
+    "no_documents": "Noch keine Dokumente hochgeladen. Bitte laden Sie zuerst Dokumente hoch.",
+    "thinking": "Denke...",
+    "sources": "Quellen",
+    "rate_answer": "Diese Antwort bewerten",
+    "thumbs_up": "👍 Gut",
+    "thumbs_down": "👎 Schlecht"
+  },
+  "analytics": {
+    "title": "Analytik",
+    "total_queries": "Gesamte Abfragen",
+    "avg_response_time": "Durchschnittliche Antwortzeit",
+    "satisfaction": "Zufriedenheit",
+    "popular_queries": "Beliebte Abfragen",
+    "failed_queries": "Fehlgeschlagene Abfragen"
+  },
+  "documents": {
+    "title": "Dokumente",
+    "upload_document": "Dokument hochladen",
+    "document_list": "Dokumentenliste",
+    "processing": "Verarbeitung...",
+    "processed": "Verarbeitet",
+    "failed": "Fehlgeschlagen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "theme": "Design",
+    "notifications": "Benachrichtigungen"
+  }
+}
+

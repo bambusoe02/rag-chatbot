@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>New API Key Created 🔑</h2>
+
+<p>Hi {{ username }},</p>
+
+<p>A new API key has been created for your account:</p>
+
+<div class="info-box">
+    <strong>Key Name:</strong> {{ key_name }}<br>
+    <strong>Created:</strong> Just now<br>
+    <strong>Status:</strong> Active
+</div>
+
+<div class="warning-box">
+    <strong>🔒 Security Reminder:</strong>
+    <ul>
+        <li>Keep your API key secure</li>
+        <li>Never share it publicly</li>
+        <li>Rotate keys regularly</li>
+        <li>Monitor usage in your dashboard</li>
+    </ul>
+</div>
+
+<p>If you didn't create this API key, please contact support immediately.</p>
+{% endblock %}
+

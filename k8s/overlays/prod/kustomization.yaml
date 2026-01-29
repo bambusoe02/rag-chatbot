@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rag-chatbot
+
+resources:
+- ../../base
+- certificate.yaml
+
+# Production-specific patches
+patches:
+- path: replicas-patch.yaml
+- path: resources-patch.yaml
+
+configMapGenerator:
+- name: rag-config
+  behavior: merge
+  literals:
+  - ENVIRONMENT=production
+  - LOG_LEVEL=INFO
+  - EMAIL_ENABLED=true
+
+# Use external secrets (from Vault, AWS Secrets Manager, etc.)
+

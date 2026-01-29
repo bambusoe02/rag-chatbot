@@ -1,0 +1,117 @@
+name: rag-chatbot
+region: nyc
+domains:
+- domain: rag-chatbot.example.com
+
+services:
+# Backend API
+- name: backend
+  github:
+    repo: your-username/rag-chatbot
+    branch: main
+    deploy_on_push: true
+  dockerfile_path: Dockerfile.backend
+  source_dir: /
+  
+  http_port: 8000
+  
+  instance_count: 2
+  instance_size_slug: professional-xs
+  
+  health_check:
+    http_path: /health/live
+    initial_delay_seconds: 30
+    period_seconds: 30
+  
+  envs:
+  - key: ENVIRONMENT
+    value: "production"
+  - key: OLLAMA_BASE_URL
+    value: "http://ollama:11434"
+  - key: REDIS_HOST
+    value: "${redis.HOSTNAME}"
+  - key: SECRET_KEY
+    scope: RUN_TIME
+    type: SECRET
+  - key: DATABASE_URL
+    value: "${db.DATABASE_URL}"
+  
+  routes:
+  - path: /api
+
+# Frontend
+- name: frontend
+  github:
+    repo: your-username/rag-chatbot
+    branch: main
+    deploy_on_push: true
+  dockerfile_path: Dockerfile.frontend
+  source_dir: /
+  
+  http_port: 8501
+  
+  instance_count: 2
+  instance_size_slug: professional-xs
+  
+  health_check:
+    http_path: /_stcore/health
+    initial_delay_seconds: 30
+    period_seconds: 30
+  
+  envs:
+  - key: BACKEND_URL
+    value: "${backend.PRIVATE_URL}"
+  
+  routes:
+  - path: /
+
+# Ollama (LLM)
+- name: ollama
+  github:
+    repo: your-username/rag-chatbot
+    branch: main
+    deploy_on_push: true
+  dockerfile_path: Dockerfile.ollama
+  
+  http_port: 11434
+  
+  instance_count: 1
+  instance_size_slug: professional-l
+  
+  health_check:
+    http_path: /api/tags
+    initial_delay_seconds: 60
+    period_seconds: 30
+
+# Celery Worker
+- name: celery-worker
+  github:
+    repo: your-username/rag-chatbot
+    branch: main
+    deploy_on_push: true
+  dockerfile_path: Dockerfile.backend
+  run_command: celery -A backend.celery_app worker --loglevel=info
+  
+  instance_count: 1
+  instance_size_slug: basic-xs
+  
+  envs:
+  - key: CELERY_BROKER_URL
+    value: "redis://${redis.HOSTNAME}:${redis.PORT}/1"
+  - key: CELERY_RESULT_BACKEND
+    value: "redis://${redis.HOSTNAME}:${redis.PORT}/2"
+
+# Database
+databases:
+- name: db
+  engine: PG
+  version: "15"
+  production: true
+  cluster_name: rag-chatbot-db
+
+# Redis
+- name: redis
+  engine: REDIS
+  version: "7"
+  production: true
+

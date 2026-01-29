@@ -37,14 +37,26 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Enable CORS for Streamlit frontend
+# Enable CORS for Streamlit frontend - configurable via environment variable
+cors_origins_str = os.getenv("CORS_ORIGINS", "http://localhost:8501,http://127.0.0.1:8501")
+cors_origins = [origin.strip() for origin in cors_origins_str.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8501", "http://127.0.0.1:8501"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add rate limiting middleware (if enabled via environment variable)
+if os.getenv("ENABLE_RATE_LIMITING", "true").lower() == "true":
+    try:
+        from backend.rate_limit_middleware import RateLimitMiddleware
+        app.add_middleware(RateLimitMiddleware)
+        logger.info("✓ Rate limiting middleware enabled")
+    except Exception as e:
+        logger.warning(f"Rate limiting middleware not available: {e}")
 
 # Global RAG engine instance (legacy, for backward compatibility)
 rag_engine: Optional[Any] = None
@@ -59,7 +71,6 @@ from backend.auth import (
 )
 from backend.user_rag_engine import UserRAGEngine
 from backend.webhooks import WebhookManager
-from backend.health import router as health_router
 
 # Pydantic schemas for auth
 class UserCreate(BaseModel):
@@ -93,6 +104,33 @@ async def startup_event():
     logger.info("Starting RAG Chatbot Enterprise API...")
     logger.info("=" * 50)
     
+    # Validate required environment variables
+    environment = os.getenv("ENVIRONMENT", "development")
+    logger.info(f"Environment: {environment}")
+    
+    # Check SECRET_KEY (validation happens in auth.py import, but log status)
+    secret_key = os.getenv("SECRET_KEY")
+    if not secret_key or secret_key == "change-this-in-production":
+        if environment == "production":
+            logger.error("❌ SECRET_KEY not set or using default value in production!")
+            raise ValueError("SECRET_KEY must be set in production environment")
+        else:
+            logger.warning("⚠️  SECRET_KEY not set - using default (NOT SAFE FOR PRODUCTION)")
+    else:
+        logger.info("✓ SECRET_KEY is set")
+    
+    # Validate other critical variables
+    required_vars = {
+        "DATABASE_URL": os.getenv("DATABASE_URL", "sqlite:///./data/app.db"),
+        "OLLAMA_BASE_URL": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+    }
+    
+    for var_name, var_value in required_vars.items():
+        if var_value:
+            logger.info(f"✓ {var_name} is set")
+        else:
+            logger.warning(f"⚠️  {var_name} is not set")
+    
     # Create necessary directories
     os.makedirs("./data/uploads", exist_ok=True)
     os.makedirs("./data/chroma_db", exist_ok=True)
@@ -121,12 +159,10 @@ async def startup_event():
         logger.warning(f"Legacy RAG engine not initialized: {e}")
         # Don't fail startup, user-specific engines will be created on demand
 
-# Include health check router
-app.include_router(health_router)
 
 @app.get("/health")
 async def health_check():
-    """Simple health check endpoint (legacy, kept for backward compatibility)."""
+    """Simple health check endpoint."""
     return {
         "status": "ok",
         "message": "RAG Chatbot Enterprise API is running",

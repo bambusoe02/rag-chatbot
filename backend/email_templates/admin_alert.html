@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>System Alert 🚨</h2>
+
+<div class="{% if severity == 'error' %}warning-box{% else %}info-box{% endif %}">
+    <strong>Severity:</strong> {{ severity | upper }}<br>
+    <strong>Time:</strong> {{ timestamp }}<br>
+    <strong>Subject:</strong> {{ subject }}
+</div>
+
+<h3>Message:</h3>
+<p>{{ message }}</p>
+
+<p><em>This is an automated alert from RAG Chatbot monitoring system.</em></p>
+{% endblock %}
+

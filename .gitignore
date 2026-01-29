@@ -62,4 +62,15 @@ ENTERPRISE_COMPLETE.md
 ENTERPRISE_STATUS.md
 IMPLEMENTATION_STATUS.md
 FEATURES_VERIFICATION.md
+ADVANCED_FEATURES_IMPLEMENTATION.md
+CASE_STUDY_*.md
+docs/case-studies/
+docs/user/videos/advanced-features.md
+deploy_local.sh
+deploy_production.sh
+status_local.sh
+security_audit.py
+.env.production.template
+k8s/
+frontend/pages/5_*_System_Status.py
 

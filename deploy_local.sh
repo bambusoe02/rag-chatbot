@@ -139,12 +139,12 @@ fi
 
 # Check/create .env
 if [ ! -f ".env" ]; then
-    print_warning ".env nie istnieje - tworzę z .env.example..."
+    print_warning ".env does not exist - creating from .env.example..."
     if [ -f ".env.example" ]; then
         cp .env.example .env
-        print_success ".env utworzony z .env.example"
+        print_success ".env created from .env.example"
     else
-        print_error ".env.example nie istnieje!"
+        print_error ".env.example does not exist!"
         exit 1
     fi
 else

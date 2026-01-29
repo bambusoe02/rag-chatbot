@@ -48,12 +48,12 @@ fi
 
 # Check .env
 if [ ! -f ".env" ]; then
-    echo -e "${YELLOW}⚠${NC} Tworzenie .env z .env.example..."
+    echo -e "${YELLOW}⚠${NC} Creating .env from .env.example..."
     cp .env.example .env
     # Generate SECRET_KEY
     SECRET_KEY=$(openssl rand -hex 32)
     echo "SECRET_KEY=$SECRET_KEY" >> .env
-    echo -e "${GREEN}✓${NC} .env utworzony"
+    echo -e "${GREEN}✓${NC} .env created"
 fi
 
 # Create data directories

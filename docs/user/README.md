@@ -60,7 +60,7 @@ Welcome! This guide will help you get the most out of RAG Chatbot.
 
 Documentation available in:
 - [English](README.md) (current)
-- [Polski](README.pl.md) (coming soon)
+- [Polish](README.pl.md) (coming soon)
 - [Deutsch](README.de.md) (coming soon)
 - [Français](README.fr.md) (coming soon)
 

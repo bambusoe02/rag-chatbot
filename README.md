@@ -2,6 +2,7 @@
 
 > Production-ready Retrieval-Augmented Generation platform with local LLM deployment
 
+[![CI](https://github.com/bambusoe02/rag-chatbot/workflows/CI/badge.svg)](https://github.com/bambusoe02/rag-chatbot/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -377,6 +378,12 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 **Location:** Warsaw, Poland 🇵🇱 & Reykjavik, Iceland 🇮🇸  
 **Open to:** Remote opportunities, consulting, collaborations
+
+---
+
+## 🔑 Keywords
+
+**production-ready**, **enterprise-grade**, **on-premise**, **GDPR**, **local LLM**, **privacy**, **RAG**, **Qwen 14B**, **LangChain**, **ChromaDB**, **Docker**, **FastAPI**, **document intelligence**, **vector search**, **95% accuracy**, **2.1% hallucination rate**, **Streamlit**, **Python**, **enterprise AI**, **data sovereignty**, **privacy-first**, **on-premise deployment**, **cost-effective**, **multi-format parsing**
 
 ---
 

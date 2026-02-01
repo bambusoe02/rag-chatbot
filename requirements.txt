@@ -15,7 +15,7 @@ alembic==1.13.1
 # Pydantic
 pydantic==2.5.3
 pydantic-settings==2.1.0
-email_validator==2.1.1
+email_validator==2.3.0
 
 # LangChain - compatible versions
 langchain==0.1.0

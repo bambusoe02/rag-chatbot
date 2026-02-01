@@ -47,7 +47,7 @@ fpdf2==2.7.6
 wordcloud==1.9.3
 
 # Utils
-loguru==0.7.2
+loguru==0.7.3
 pytest==7.4.3
 httpx==0.26.0
 pandas==2.1.4
